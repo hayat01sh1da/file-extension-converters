@@ -16,6 +16,7 @@ class TestApplication(unittest.TestCase):
             with open(os.path.join(self.dirname, 'test_file_{i:03}{original_extension}'.format(i = i, original_extension = self.original_extension)), 'w') as f:
                 f.write('')
         self.target_extension = '.md'
+        self.pycaches         = glob.glob(os.path.join('.', '**', '__pycache__'))
 
     def test_run_in_dry_run_mode_1(self):
       Application(self.original_extension, self.target_extension).run()
@@ -33,7 +34,11 @@ class TestApplication(unittest.TestCase):
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{target_extension}'.format(target_extension = self.target_extension)), recursive = True)), 100)
 
     def tearDown(self):
-        shutil.rmtree(self.dirname)
+        if os.path.isdir(self.dirname):
+            shutil.rmtree(self.dirname)
+        for pycache in self.pycaches:
+            if os.path.isdir(pycache):
+                shutil.rmtree(pycache)
 
 if __name__ == '__main__':
     unittest.main()
