@@ -18,6 +18,13 @@ class TestApplication(unittest.TestCase):
         self.target_extension = '.md'
         self.pycaches         = glob.glob(os.path.join('.', '**', '__pycache__'))
 
+    def tearDown(self):
+        if os.path.isdir(self.dirname):
+            shutil.rmtree(self.dirname)
+        for pycache in self.pycaches:
+            if os.path.isdir(pycache):
+                shutil.rmtree(pycache)
+
     def test_run_in_dry_run_mode_1(self):
       Application(self.original_extension, self.target_extension).run()
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{original_extension}'.format(original_extension = self.original_extension)), recursive = True)), 100)
@@ -32,13 +39,6 @@ class TestApplication(unittest.TestCase):
       Application(self.original_extension, self.target_extension, '-e').run()
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{original_extension}'.format(original_extension = self.original_extension)), recursive = True)), 0)
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{target_extension}'.format(target_extension = self.target_extension)), recursive = True)), 100)
-
-    def tearDown(self):
-        if os.path.isdir(self.dirname):
-            shutil.rmtree(self.dirname)
-        for pycache in self.pycaches:
-            if os.path.isdir(pycache):
-                shutil.rmtree(pycache)
 
 if __name__ == '__main__':
     unittest.main()

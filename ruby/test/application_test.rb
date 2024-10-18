@@ -10,6 +10,10 @@ class ApplicationTest < Minitest::Test
     @target_extension = '.md'
   end
 
+  def teardown
+    FileUtils.rm_rf(dirname) if Dir.exist?(dirname)
+  end
+
   def test_run_in_dry_run_mode_1
     application = Application.run(original_extension:, target_extension:)
     assert_equal(Dir.glob(File.join(dirname, "*#{original_extension}")).size, 100)
@@ -26,10 +30,6 @@ class ApplicationTest < Minitest::Test
     application = Application.run(original_extension:, target_extension:, mode: '-e')
     assert_equal(Dir.glob(File.join(dirname, "*#{original_extension}")).size, 0)
     assert_equal(Dir.glob(File.join(dirname, "*#{target_extension}")).size, 100)
-  end
-
-  def teardown
-    FileUtils.rm_rf(dirname)
   end
 
   private
