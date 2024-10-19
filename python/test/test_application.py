@@ -16,7 +16,7 @@ class TestApplication(unittest.TestCase):
             with open(os.path.join(self.dirname, 'test_file_{i:03}{original_extension}'.format(i = i, original_extension = self.original_extension)), 'w') as f:
                 f.write('')
         self.target_extension = '.md'
-        self.pycaches         = glob.glob(os.path.join('.', '**', '__pycache__'))
+        self.pycaches         = glob.glob(os.path.join('.', '**', '__pycache__'), recursive = True)
 
     def tearDown(self):
         if os.path.isdir(self.dirname):
