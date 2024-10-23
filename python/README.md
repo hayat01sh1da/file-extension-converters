@@ -5,7 +5,7 @@
 ## 2. Execution
 
 ```command
-$ cd ./python/
+$ cd ./python
 $ python main.py 
 Provide the directory which contains files you would like to delete: .
 Provide the dirname or filename pattern you would like to delete: *.py
