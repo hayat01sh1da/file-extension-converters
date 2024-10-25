@@ -25,7 +25,7 @@ class Application
   end
 
   def run
-    puts "Current Directory is #{Dir.getwd}"
+    puts "Current Directory is #{File.absolute_path('.')}"
     if !target_files.empty?
       puts "========== [#{exec_mode}] Total File Extensions Count to Convert: #{target_files.size} =========="
       puts "========== [#{exec_mode}] Start Converting File Extensions =========="

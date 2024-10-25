@@ -14,7 +14,7 @@ class Application:
     def run(self):
         self.__validate__(self.mode)
 
-        print('Target dirname is {current_directory}'.format(current_directory = os.getcwd()))
+        print('Target dirname is {current_directory}'.format(current_directory = os.path.abspath('.')))
         if len(self.target_files) > 1:
             print('========== [{exec_mode}] Total File Extensions Count to Convert: {files_count} =========='.format(exec_mode = self.__exec_mode__(), files_count = len(self.target_files)))
             print('========== [{exec_mode}] Start Converting File Extensions'.format(exec_mode = self.__exec_mode__()))
