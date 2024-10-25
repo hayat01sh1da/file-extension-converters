@@ -5,6 +5,7 @@ import shutil
 import sys
 sys.path.append('./src')
 from application import Application
+from application import InvalidModeError
 
 class TestApplication(unittest.TestCase):
     def setUp(self):
@@ -31,14 +32,18 @@ class TestApplication(unittest.TestCase):
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{target_extension}'.format(target_extension = self.target_extension)), recursive = True)), 0)
 
     def test_run_in_dry_run_mode_2(self):
-      Application(self.original_extension, self.target_extension, '-d').run()
+      Application(self.original_extension, self.target_extension, 'd').run()
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{original_extension}'.format(original_extension = self.original_extension)), recursive = True)), 100)
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{target_extension}'.format(target_extension = self.target_extension)), recursive = True)), 0)
 
     def test_run_in_exec_mode(self):
-      Application(self.original_extension, self.target_extension, '-e').run()
+      Application(self.original_extension, self.target_extension, 'e').run()
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{original_extension}'.format(original_extension = self.original_extension)), recursive = True)), 0)
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{target_extension}'.format(target_extension = self.target_extension)), recursive = True)), 100)
+
+    def test_invalid_mode(self):
+        with self.assertRaises(InvalidModeError, msg = 'a is invalid mode. Provide either `d`(default) or `e`.'):
+            Application(self.original_extension, self.target_extension, 'a').run()
 
 if __name__ == '__main__':
     unittest.main()

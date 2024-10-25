@@ -21,15 +21,22 @@ class ApplicationTest < Minitest::Test
   end
 
   def test_run_in_dry_run_mode_2
-    application = Application.run(original_extension:, target_extension:, mode: '-d')
+    application = Application.run(original_extension:, target_extension:, mode: 'd')
     assert_equal(Dir.glob(File.join(dirname, "*#{original_extension}")).size, 100)
     assert_equal(Dir.glob(File.join(dirname, "*#{target_extension}")).size, 0)
   end
 
   def test_run_in_exec_mode
-    application = Application.run(original_extension:, target_extension:, mode: '-e')
+    application = Application.run(original_extension:, target_extension:, mode: 'e')
     assert_equal(Dir.glob(File.join(dirname, "*#{original_extension}")).size, 0)
     assert_equal(Dir.glob(File.join(dirname, "*#{target_extension}")).size, 100)
+  end
+
+  def test_invalid_mode
+    error = assert_raises Application::InvalidModeError do
+      Application.run(original_extension:, target_extension:, mode: 'a')
+    end
+    assert_equal(error.message, 'a is invalid mode. Provide either `d`(default) or `e`.')
   end
 
   private
