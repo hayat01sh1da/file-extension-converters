@@ -25,17 +25,17 @@ class Application
   end
 
   def run
-    puts "Current Directory is #{File.absolute_path('.')}"
+    output "Current Directory is #{File.absolute_path('.')}"
     if !target_files.empty?
-      puts "========== [#{exec_mode}] Total File Extensions Count to Convert: #{target_files.size} =========="
-      puts "========== [#{exec_mode}] Start Converting File Extensions =========="
+      output "========== [#{exec_mode}] Total File Extensions Count to Convert: #{target_files.size} =========="
+      output "========== [#{exec_mode}] Start Converting File Extensions =========="
       target_files.each { |target_file|
         FileUtils.mv(target_file, destination_file(target_file)) if mode == 'e'
-        puts "========== [#{exec_mode}] Converted File Extension: #{target_file} => #{destination_file(target_file)} =========="
+        output "========== [#{exec_mode}] Converted File Extension: #{target_file} => #{destination_file(target_file)} =========="
       }
-      puts "========== [#{exec_mode}] Total Converted File Extensions Count: #{target_files.size} =========="
+      output "========== [#{exec_mode}] Total Converted File Extensions Count: #{target_files.size} =========="
     else
-      puts "========== [#{exec_mode}] No File with #{original_extension} Remains =========="
+      output "========== [#{exec_mode}] No File with #{original_extension} Remains =========="
     end
   end
 
@@ -49,5 +49,13 @@ class Application
 
   def destination_file(target_file)
     "#{File.dirname(target_file)}/#{File.basename(target_file, '.*')}#{target_extension}"
+  end
+
+  def test_env?
+    caller[-1].split('/').last.match?(/minitest\.rb/)
+  end
+
+  def output(message)
+    puts message unless test_env?
   end
 end
