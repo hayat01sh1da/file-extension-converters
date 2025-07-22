@@ -14,7 +14,7 @@ class TestApplication(unittest.TestCase):
             os.makedirs(self.dirname)
         self.original_extension = '.txt'
         for i in range(1, 101):
-            with open(os.path.join(self.dirname, 'test_file_{i:03}{original_extension}'.format(i = i, original_extension = self.original_extension)), 'w') as f:
+            with open(os.path.join(self.dirname, f'test_file_{i:03}{self.original_extension}'), 'w') as f:
                 f.write('')
         self.target_extension = '.md'
         self.pycaches         = glob.glob(os.path.join('.', '**', '__pycache__'), recursive = True)
@@ -28,18 +28,18 @@ class TestApplication(unittest.TestCase):
 
     def test_run_in_dry_run_mode_1(self):
       Application(self.original_extension, self.target_extension).run()
-      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{original_extension}'.format(original_extension = self.original_extension)), recursive = True)), 100)
-      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{target_extension}'.format(target_extension = self.target_extension)), recursive = True)), 0)
+      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.original_extension}'), recursive = True)), 100)
+      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.target_extension}'), recursive = True)), 0)
 
     def test_run_in_dry_run_mode_2(self):
       Application(self.original_extension, self.target_extension, 'd').run()
-      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{original_extension}'.format(original_extension = self.original_extension)), recursive = True)), 100)
-      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{target_extension}'.format(target_extension = self.target_extension)), recursive = True)), 0)
+      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.original_extension}'), recursive = True)), 100)
+      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.target_extension}'), recursive = True)), 0)
 
     def test_run_in_exec_mode(self):
       Application(self.original_extension, self.target_extension, 'e').run()
-      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{original_extension}'.format(original_extension = self.original_extension)), recursive = True)), 0)
-      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', '*{target_extension}'.format(target_extension = self.target_extension)), recursive = True)), 100)
+      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.original_extension}'), recursive = True)), 0)
+      self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.target_extension}'), recursive = True)), 100)
 
     def test_invalid_mode(self):
         with self.assertRaises(InvalidModeError, msg = 'a is invalid mode. Provide either `d`(default) or `e`.'):
