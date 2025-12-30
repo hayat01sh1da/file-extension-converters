@@ -1,18 +1,27 @@
 require 'fileutils'
 
 class Application
+  class InvalidExtensionError < StandardError; end
   class InvalidModeError < StandardError; end
 
   def self.run(original_extension:, target_extension:, mode: 'd')
-    instance = new(original_extension, target_extension, mode)
+    instance = new(original_extension:, target_extension:, mode:)
+    instance.validate_extension!
     instance.validate_mode!
     instance.run
   end
 
-  def initialize(original_extension, target_extension, mode)
-    @target_files     = Dir.glob(File.join('.', '**', "*#{original_extension}"))
-    @target_extension = target_extension
-    @mode             = mode
+  def initialize(original_extension:, target_extension:, mode: 'd')
+    @original_extension = original_extension
+    @target_files       = Dir.glob(File.join('.', '**', "*#{original_extension}"))
+    @target_extension   = target_extension
+    @mode               = mode
+  end
+
+  def validate_extension!
+    if !original_extension.start_with?('.') || !target_extension.start_with?('.')
+      raise InvalidExtensionError, 'Provide a valid extension starting with `.`'
+    end
   end
 
   def validate_mode!
@@ -41,7 +50,7 @@ class Application
 
   private
 
-  attr_reader :target_files, :target_extension, :mode
+  attr_reader :original_extension, :target_files, :target_extension, :mode
 
   def exec_mode
     mode == 'e' ? 'EXECUTION' : 'DRY RUN'

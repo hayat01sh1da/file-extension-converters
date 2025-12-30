@@ -4,8 +4,7 @@ import glob
 import shutil
 import sys
 sys.path.append('./src')
-from application import Application
-from application import InvalidModeError
+from application import Application, InvalidExtensionError, InvalidModeError
 
 class TestApplication(unittest.TestCase):
     def setUp(self):
@@ -26,6 +25,12 @@ class TestApplication(unittest.TestCase):
             if os.path.exists(pycache):
                 shutil.rmtree(pycache)
 
+    def test_invalid_extension(self):
+        with self.assertRaises(InvalidExtensionError) as cm:
+            Application(original_extension = 'py', target_extension = self.target_extension).run()
+        self.assertEqual('Provide a valid extension starting with `.`', str(cm.exception))
+            Application(self.original_extension, self.target_extension, 'a').run()
+        self.assertEqual('a is invalid mode. Provide either `d`(default) or `e`.', str(cm.exception))
     def test_run_in_dry_run_mode_1(self):
       Application(self.original_extension, self.target_extension).run()
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.original_extension}'), recursive = True)), 100)
