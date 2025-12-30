@@ -4,8 +4,7 @@ import glob
 import shutil
 import sys
 sys.path.append('./src')
-from application import Application
-from application import InvalidModeError
+from application import Application, InvalidExtensionError, InvalidModeError
 
 class TestApplication(unittest.TestCase):
     def setUp(self):
@@ -26,24 +25,30 @@ class TestApplication(unittest.TestCase):
             if os.path.exists(pycache):
                 shutil.rmtree(pycache)
 
+    def test_invalid_extension(self):
+        with self.assertRaises(InvalidExtensionError) as cm:
+            Application(original_extension = 'py', target_extension = self.target_extension).run()
+        self.assertEqual('Provide a valid extension starting with `.`', str(cm.exception))
+
+    def test_invalid_mode(self):
+        with self.assertRaises(InvalidModeError) as cm:
+            Application(original_extension = self.original_extension,  target_extension = self.target_extension, mode = 'a').run()
+        self.assertEqual('a is invalid mode. Provide either `d`(default) or `e`.', str(cm.exception))
+
     def test_run_in_dry_run_mode_1(self):
-      Application(self.original_extension, self.target_extension).run()
+      Application(original_extension = self.original_extension,  target_extension = self.target_extension ).run()
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.original_extension}'), recursive = True)), 100)
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.target_extension}'), recursive = True)), 0)
 
     def test_run_in_dry_run_mode_2(self):
-      Application(self.original_extension, self.target_extension, 'd').run()
+      Application(original_extension = self.original_extension,  target_extension = self.target_extension, mode = 'd').run()
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.original_extension}'), recursive = True)), 100)
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.target_extension}'), recursive = True)), 0)
 
     def test_run_in_exec_mode(self):
-      Application(self.original_extension, self.target_extension, 'e').run()
+      Application(original_extension = self.original_extension, target_extension = self.target_extension, mode = 'e').run()
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.original_extension}'), recursive = True)), 0)
       self.assertEqual(len(glob.glob(os.path.join(self.dirname, '**', f'*{self.target_extension}'), recursive = True)), 100)
-
-    def test_invalid_mode(self):
-        with self.assertRaises(InvalidModeError, msg = 'a is invalid mode. Provide either `d`(default) or `e`.'):
-            Application(self.original_extension, self.target_extension, 'a').run()
 
 if __name__ == '__main__':
     unittest.main()

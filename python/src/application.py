@@ -3,6 +3,9 @@ import glob
 import shutil
 import inspect
 
+class InvalidExtensionError(Exception):
+    pass
+
 class InvalidModeError(Exception):
     pass
 
@@ -15,7 +18,8 @@ class Application:
         self.env                = inspect.stack()[1].filename.split('/')[-2]
 
     def run(self):
-        self.__validate__(self.mode)
+        self.__validate_extension__()
+        self.__validate_mode__()
 
         self.__output__(f'Target dirname is {os.path.abspath(".")}')
         if len(self.target_files) > 1:
@@ -32,8 +36,12 @@ class Application:
 
     # private
 
-    def __validate__(self, mode):
-        match mode:
+    def __validate_extension__(self):
+        if not self.original_extension.startswith('.') or not self.target_extension.startswith('.'):
+            raise InvalidExtensionError('Provide a valid extension starting with `.`')
+
+    def __validate_mode__(self):
+        match self.mode:
             case 'd' | 'e':
                 return
             case _:

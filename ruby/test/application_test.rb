@@ -14,6 +14,20 @@ class ApplicationTest < Minitest::Test
     FileUtils.rm_rf(dirname) if Dir.exist?(dirname)
   end
 
+  def test_invalid_extension
+    error = assert_raises Application::InvalidExtensionError do
+      Application.run(original_extension: 'rb', target_extension:)
+    end
+    assert_equal('Provide a valid extension starting with `.`', error.message)
+  end
+
+  def test_invalid_mode
+    error = assert_raises Application::InvalidModeError do
+      Application.run(original_extension:, target_extension:, mode: 'a')
+    end
+    assert_equal('a is invalid mode. Provide either `d`(default) or `e`.', error.message)
+  end
+
   def test_run_in_dry_run_mode_1
     application = Application.run(original_extension:, target_extension:)
     assert_equal(100, Dir.glob(File.join(dirname, "*#{original_extension}")).length)
@@ -30,13 +44,6 @@ class ApplicationTest < Minitest::Test
     application = Application.run(original_extension:, target_extension:, mode: 'e')
     assert_equal(0, Dir.glob(File.join(dirname, "*#{original_extension}")).length)
     assert_equal(100, Dir.glob(File.join(dirname, "*#{target_extension}")).length)
-  end
-
-  def test_invalid_mode
-    error = assert_raises Application::InvalidModeError do
-      Application.run(original_extension:, target_extension:, mode: 'a')
-    end
-    assert_equal('a is invalid mode. Provide either `d`(default) or `e`.', error.message)
   end
 
   private
