@@ -9,4 +9,6 @@ target_extension = gets.chomp
 puts 'Provide d(dry_run: default) to make sure what directories and files are to be changed in the extensions first. Then, provide e(execution) if you would truly like to change the extensions. This operation is cannot be undone, so be alert to your operation!'
 mode = gets.chomp
 
-Application.run(original_extension:, target_extension:, mode:)
+params = { original_extension:, target_extension:, mode: }.reject { |_, value| value.empty? }
+
+Application.run(**params)
