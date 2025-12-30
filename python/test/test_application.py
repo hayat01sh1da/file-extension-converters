@@ -9,8 +9,7 @@ from application import Application, InvalidExtensionError, InvalidModeError
 class TestApplication(unittest.TestCase):
     def setUp(self):
         self.dirname = os.path.join('.', 'test', 'tmp')
-        if not os.path.exists(self.dirname):
-            os.makedirs(self.dirname)
+        os.makedirs(self.dirname, exist_ok = True)
         self.original_extension = '.txt'
         for i in range(1, 101):
             with open(os.path.join(self.dirname, f'test_file_{i:03}{self.original_extension}'), 'w') as f:
