@@ -16,20 +16,20 @@ class ApplicationTest < Minitest::Test
 
   def test_run_in_dry_run_mode_1
     application = Application.run(original_extension:, target_extension:)
-    assert_equal(100, Dir.glob(File.join(dirname, "*#{original_extension}")).size)
-    assert_equal(0, Dir.glob(File.join(dirname, "*#{target_extension}")).size)
+    assert_equal(100, Dir.glob(File.join(dirname, "*#{original_extension}")).length)
+    assert_equal(0, Dir.glob(File.join(dirname, "*#{target_extension}")).length)
   end
 
   def test_run_in_dry_run_mode_2
     application = Application.run(original_extension:, target_extension:, mode: 'd')
-    assert_equal(100, Dir.glob(File.join(dirname, "*#{original_extension}")).size)
-    assert_equal(0, Dir.glob(File.join(dirname, "*#{target_extension}")).size)
+    assert_equal(100, Dir.glob(File.join(dirname, "*#{original_extension}")).length)
+    assert_equal(0, Dir.glob(File.join(dirname, "*#{target_extension}")).length)
   end
 
   def test_run_in_exec_mode
     application = Application.run(original_extension:, target_extension:, mode: 'e')
-    assert_equal(0, Dir.glob(File.join(dirname, "*#{original_extension}")).size)
-    assert_equal(100, Dir.glob(File.join(dirname, "*#{target_extension}")).size)
+    assert_equal(0, Dir.glob(File.join(dirname, "*#{original_extension}")).length)
+    assert_equal(100, Dir.glob(File.join(dirname, "*#{target_extension}")).length)
   end
 
   def test_invalid_mode

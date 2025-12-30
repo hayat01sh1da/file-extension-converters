@@ -27,13 +27,13 @@ class Application
   def run
     output "Current Directory is #{File.absolute_path('.')}"
     if !target_files.empty?
-      output "========== [#{exec_mode}] Total File Extensions Count to Convert: #{target_files.size} =========="
+      output "========== [#{exec_mode}] Total File Extensions Count to Convert: #{target_files.length} =========="
       output "========== [#{exec_mode}] Start Converting File Extensions =========="
       target_files.each { |target_file|
         FileUtils.mv(target_file, destination_file(target_file)) if mode == 'e'
         output "========== [#{exec_mode}] Converted File Extension: #{target_file} => #{destination_file(target_file)} =========="
       }
-      output "========== [#{exec_mode}] Total Converted File Extensions Count: #{target_files.size} =========="
+      output "========== [#{exec_mode}] Total Converted File Extensions Count: #{target_files.length} =========="
     else
       output "========== [#{exec_mode}] No File with #{original_extension} Remains =========="
     end
