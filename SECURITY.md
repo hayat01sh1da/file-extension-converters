@@ -3,7 +3,7 @@
 ## Supported Versions
 
 - The default `master` branch is the only supported release line.
-- Older tags or local modifications are considered out of scope unless they can  be reproduced on the latest commit.
+- Older tags or local modifications are considered out of scope unless they can be reproduced on the latest commit.
 
 ## Ecosystem & Compatibility
 
