@@ -53,7 +53,7 @@ class Application
   attr_reader :original_extension, :target_files, :target_extension, :mode
 
   def exec_mode
-    mode == 'e' ? 'EXECUTION' : 'DRY RUN'
+    @exec_mode ||= mode == 'e' ? 'EXECUTION' : 'DRY RUN'
   end
 
   def destination_file(target_file)
