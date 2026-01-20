@@ -15,6 +15,7 @@ class Application:
         self.target_files       = glob.glob(os.path.join('.', '**', f'*{original_extension}'), recursive = True)
         self.target_extension   = target_extension
         self.mode               = mode
+        self.exec_mode          = self.__exec_mode__()
         self.env                = inspect.stack()[1].filename.split('/')[-2]
 
     def run(self):
