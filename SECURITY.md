@@ -1,5 +1,3 @@
-# Security Policy
-
 ## Supported Versions
 
 - The default `master` branch is the only supported release line.
@@ -20,10 +18,7 @@
 
 ## Reporting a Vulnerability
 
-Please disclose suspected vulnerabilities privately:
+Please report issues privately via **GitHub Security Advisory** (preferred) — open through the repository’s **Security → Report a vulnerability** workflow.
 
-1. Use GitHub’s **Security → Report a vulnerability** form to open a private advisory (preferred).
-2. If needed, email `security@project.org` with reproduction steps, affected parameters (`original_extension`, `target_extension`, `mode`), and environment details.
-
-We aim to acknowledge within **3 business days** and provide updates at least every **7 business days** until resolution.  
-Fixes are released on `master` and communicated via the changelog.
+Acknowledgement occurs and status updates follow as soon as possible.  
+After remediation we publish guidance alongside required dependency updates.
