@@ -1,3 +1,6 @@
+[![Actions Status: UnitTest](https://github.com/hayat01sh1da/file-extension-converters/workflows/UnitTest/badge.svg)](https://github.com/hayat01sh1da/file-extension-converters/actions?query=workflow%3A%22UnitTest%22)
+[![Actions Status: Minitest](https://github.com/hayat01sh1da/file-extension-converters/workflows/Minitest/badge.svg)](https://github.com/hayat01sh1da/file-extension-converters/actions?query=workflow%3A%22Minitest%22)
+
 ## 1. Common Environment
 
 - WSL(Ubuntu 24.04.3 LTS)
