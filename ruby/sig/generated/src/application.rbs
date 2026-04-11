@@ -1,0 +1,54 @@
+# Generated from src/application.rb with RBS::Inline
+
+class Application
+  class InvalidExtensionError < StandardError
+  end
+
+  class InvalidModeError < StandardError
+  end
+
+  # @rbs original_extension: String
+  # @rbs target_extension: String
+  # @rbs mode: String
+  # @rbs return: void
+  def self.run: (original_extension: String, target_extension: String, ?mode: String) -> void
+
+  # @rbs original_extension: String
+  # @rbs target_extension: String
+  # @rbs mode: String
+  # @rbs return: void
+  def initialize: (original_extension: String, target_extension: String, ?mode: String) -> void
+
+  # @rbs return: void
+  def validate_extension!: () -> void
+
+  # @rbs return: void
+  def validate_mode!: () -> void
+
+  # @rbs return: void
+  def run: () -> void
+
+  private
+
+  attr_reader original_extension: untyped
+
+  attr_reader target_files: untyped
+
+  attr_reader target_extension: untyped
+
+  attr_reader mode: untyped
+
+  # @rbs return: String
+  def exec_mode: () -> String
+
+  # @rbs target_file: String
+  # @rbs return: String
+  def destination_file: (String target_file) -> String
+
+  # @rbs return: bool
+  def test_env?: () -> bool
+
+  # @rbs message: String
+  # @rbs return: void
+  def output: (String message) -> void
+end
