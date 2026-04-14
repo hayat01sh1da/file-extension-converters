@@ -10,15 +10,15 @@ class InvalidModeError(Exception):
     pass
 
 class Application:
-    def __init__(self, original_extension, target_extension, mode = 'd'):
-        self.original_extension = original_extension
-        self.target_files       = glob.glob(os.path.join('.', '**', f'*{original_extension}'), recursive = True)
-        self.target_extension   = target_extension
-        self.mode               = mode
-        self.exec_mode          = self.__exec_mode__()
-        self.env                = inspect.stack()[1].filename.split('/')[-2]
+    def __init__(self, original_extension: str, target_extension: str, mode: str = 'd') -> None:
+        self.original_extension: str = original_extension
+        self.target_files: list[str] = glob.glob(os.path.join('.', '**', f'*{original_extension}'), recursive = True)
+        self.target_extension: str   = target_extension
+        self.mode: str               = mode
+        self.exec_mode: str          = self.__exec_mode__()
+        self.env: str                = inspect.stack()[1].filename.split('/')[-2]
 
-    def run(self):
+    def run(self) -> None:
         self.__validate_extension__()
         self.__validate_mode__()
 
@@ -37,29 +37,29 @@ class Application:
 
     # private
 
-    def __validate_extension__(self):
+    def __validate_extension__(self) -> None:
         if not self.original_extension.startswith('.') or not self.target_extension.startswith('.'):
             raise InvalidExtensionError('Provide a valid extension starting with `.`')
 
-    def __validate_mode__(self):
+    def __validate_mode__(self) -> None:
         match self.mode:
             case 'd' | 'e':
                 return
             case _:
                 raise InvalidModeError(f'{self.mode} is invalid mode. Provide either `d`(default) or `e`.')
 
-    def __exec_mode__(self):
+    def __exec_mode__(self) -> str:
         if self.mode == 'e':
             return 'EXECUTION'
         else:
             return 'DRY_RUN'
 
-    def __destination_file__(self, target_file):
+    def __destination_file__(self, target_file: str) -> str:
         return f'{os.path.dirname(target_file)}/{os.path.splitext(os.path.basename(target_file))[0]}{self.target_extension}'
 
-    def __is_test_env__(self):
+    def __is_test_env__(self) -> bool:
         return self.env == 'test'
 
-    def __output__(self, message):
+    def __output__(self, message: str) -> None:
         if not self.__is_test_env__():
             print(message)
