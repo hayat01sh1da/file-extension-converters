@@ -11,13 +11,13 @@ class Application
   # @rbs target_extension: String
   # @rbs mode: String
   # @rbs return: void
-  def self.run: (original_extension: String, target_extension: String, ?mode: String) -> void
+  def self.run: (?original_extension: String, ?target_extension: String, ?mode: String) -> void
 
   # @rbs original_extension: String
   # @rbs target_extension: String
   # @rbs mode: String
   # @rbs return: void
-  def initialize: (original_extension: String, target_extension: String, ?mode: String) -> void
+  def initialize: (?original_extension: String, ?target_extension: String, ?mode: String) -> void
 
   # @rbs return: void
   def validate_extension!: () -> void

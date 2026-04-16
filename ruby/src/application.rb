@@ -10,7 +10,7 @@ class Application
   # @rbs target_extension: String
   # @rbs mode: String
   # @rbs return: void
-  def self.run(original_extension:, target_extension:, mode: 'd')
+  def self.run(original_extension: '', target_extension: '', mode: 'd')
     instance = new(original_extension:, target_extension:, mode:)
     instance.validate_extension!
     instance.validate_mode!
@@ -21,7 +21,7 @@ class Application
   # @rbs target_extension: String
   # @rbs mode: String
   # @rbs return: void
-  def initialize(original_extension:, target_extension:, mode: 'd')
+  def initialize(original_extension: '', target_extension: '', mode: 'd')
     @original_extension = original_extension
     @target_files       = Dir.glob(File.join('.', '**', "*#{original_extension}"))
     @target_extension   = target_extension
