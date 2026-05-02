@@ -32,14 +32,14 @@ Current Directory is /mnt/c/Users/binlh/Documents/web/file-extensions-converter/
 ## 4. Unit Test
 
 ```command
-$ ruby test/application_test.rb 
-Run options: --seed 39865
+$ rake
+Run options: --seed 55190
 
 # Running:
 
 .....
 
-Finished in 4.365774s, 1.1453 runs/s, 2.2905 assertions/s.
+Finished in 10.130123s, 0.4936 runs/s, 0.9872 assertions/s.
 
 5 runs, 10 assertions, 0 failures, 0 errors, 0 skips
 ```
