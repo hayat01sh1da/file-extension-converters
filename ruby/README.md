@@ -12,7 +12,6 @@ $ bundle lock --add-checksums
 ## 3. Execution
 
 ```command
-$ cd ./ruby
 $ ruby main.rb 
 Provide the original extension of the files you would like to change(e.g., .jpg, .png, .rb, .py, .ts. .js etc.)
 .rb
