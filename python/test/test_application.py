@@ -1,10 +1,10 @@
-from application import Application, InvalidExtensionError, InvalidModeError
 import unittest
 import os
 import glob
 import shutil
 import sys
 sys.path.append('./src')
+from application import Application, InvalidExtensionError, InvalidModeError
 
 
 class TestApplication(unittest.TestCase):
