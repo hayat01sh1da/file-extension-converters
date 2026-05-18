@@ -6,10 +6,16 @@ import glob
 sys.path.append('./src')
 
 original_extension: str = input(
-    'Provide the original extension of the files you would like to change(e.g., .jpg, .png, .rb, .py, .ts. .js etc.): ').strip()
+    'Provide the original extension of the files you would like to change'
+    '(e.g., .jpg, .png, .rb, .py, .ts. .js etc.): ').strip()
 target_extension: str = input(
-    'Provide the target extension of the files you would like to switch to by the change(e.g., .jpg, .png, .rb, .py, .ts. .js etc.): ').strip()
-mode: str = input('Provide d(dry_run: default) to make sure what directories and files are to be changed in the extensions first. Then, provide e(execution) if you would truly like to change the extensions. This operation is cannot be undone, so be alert to your operation!: ').strip()
+    'Provide the target extension of the files you would like to switch to '
+    'by the change(e.g., .jpg, .png, .rb, .py, .ts. .js etc.): ').strip()
+mode: str = input(
+    'Provide d(dry_run: default) to make sure what directories and files '
+    'are to be changed in the extensions first. '
+    'Then, provide e(execution) if you would truly like to change the extensions. '
+    'This operation is cannot be undone, so be alert to your operation!: ').strip()
 
 params: dict[str, str] = dict()
 for key, value in {'original_extension': original_extension,
