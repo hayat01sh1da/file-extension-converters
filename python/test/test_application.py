@@ -11,12 +11,19 @@ TARGET_EXTENSION = '.md'
 
 
 def _count(tmp_dir: str, extension: str) -> int:
-    return len(glob.glob(os.path.join(tmp_dir, '**', f'*{extension}'), recursive=True))
+    return len(
+        glob.glob(
+            os.path.join(
+                tmp_dir,
+                '**',
+                f'*{extension}'),
+            recursive=True))
 
 
 def test_invalid_extension(tmp_dir: str) -> None:
     with pytest.raises(InvalidExtensionError) as excinfo:
-        Application(original_extension='py', target_extension=TARGET_EXTENSION).run()
+        Application(original_extension='py',
+                    target_extension=TARGET_EXTENSION).run()
     assert str(excinfo.value) == 'Provide a valid extension starting with `.`'
 
 
@@ -27,12 +34,15 @@ def test_invalid_mode(tmp_dir: str) -> None:
             target_extension=TARGET_EXTENSION,
             mode='a',
         ).run()
-    assert str(excinfo.value) == 'a is invalid mode. Provide either `d`(default) or `e`.'
+    assert str(
+        excinfo.value) == 'a is invalid mode. Provide either `d`(default) or `e`.'
 
 
 @pytest.mark.parametrize('mode', [None, 'd'])
 def test_run_in_dry_run_mode(tmp_dir: str, mode: str | None) -> None:
-    kwargs = {'original_extension': ORIGINAL_EXTENSION, 'target_extension': TARGET_EXTENSION}
+    kwargs = {
+        'original_extension': ORIGINAL_EXTENSION,
+        'target_extension': TARGET_EXTENSION}
     if mode is not None:
         kwargs['mode'] = mode
     Application(**kwargs).run()
