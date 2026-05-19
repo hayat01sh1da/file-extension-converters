@@ -6,8 +6,8 @@ import pytest
 from application import Application, InvalidExtensionError, InvalidModeError
 
 
-ORIGINAL_EXTENSION = '.txt'
-TARGET_EXTENSION = '.md'
+ORIGINAL_EXTENSION = '.png'
+TARGET_EXTENSION = '.jpg'
 
 
 def _count(tmp_dir: str, extension: str) -> int:
@@ -20,14 +20,14 @@ def _count(tmp_dir: str, extension: str) -> int:
             recursive=True))
 
 
-def test_invalid_extension(tmp_dir: str) -> None:
+def test_invalid_extension() -> None:
     with pytest.raises(InvalidExtensionError) as excinfo:
         Application(original_extension='py',
                     target_extension=TARGET_EXTENSION).run()
     assert str(excinfo.value) == 'Provide a valid extension starting with `.`'
 
 
-def test_invalid_mode(tmp_dir: str) -> None:
+def test_invalid_mode() -> None:
     with pytest.raises(InvalidModeError) as excinfo:
         Application(
             original_extension=ORIGINAL_EXTENSION,
