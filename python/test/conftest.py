@@ -24,7 +24,7 @@ def tmp_dir() -> Iterator[str]:
     dirname = os.path.join('.', 'test', 'tmp')
     os.makedirs(dirname, exist_ok=True)
     for i in range(1, 101):
-        with open(os.path.join(dirname, f'test_file_{i:03}.txt'), 'w') as f:
+        with open(os.path.join(dirname, f'test_file_{i:03}.png'), 'w') as f:
             f.write('')
     yield dirname
     if os.path.exists(dirname):
