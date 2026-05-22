@@ -7,9 +7,9 @@ class ApplicationTest < Minitest::Test
   def setup
     @dirname = File.join('test', 'tmp')
     Dir.mkdir(dirname) unless Dir.exist?(dirname)
-    @original_extension = '.txt'
+    @original_extension = '.png'
     1.upto(100).each { |i| IO.write(File.join(dirname, "test_file_#{format('%03d', i)}#{original_extension}"), '') }
-    @target_extension = '.md'
+    @target_extension = '.jpg'
   end
 
   def teardown
