@@ -47,22 +47,41 @@ class Application
   # @rbs return: void
   def run
     output "Current Directory is #{File.absolute_path('.')}"
-    if target_files.empty?
-      output "========== [#{exec_mode}] No File with #{original_extension} Remains =========="
-    else
-      output "========== [#{exec_mode}] Total File Extensions Count to Convert: #{target_files.length} =========="
-      output "========== [#{exec_mode}] Start Converting File Extensions =========="
-      target_files.each do |target_file|
-        FileUtils.mv(target_file, destination_file(target_file)) if mode == 'e'
-        output "========== [#{exec_mode}] Converted File Extension: #{target_file} => #{destination_file(target_file)} =========="
-      end
-      output "========== [#{exec_mode}] Total Converted File Extensions Count: #{target_files.length} =========="
-    end
+    return announce_empty if target_files.empty?
+
+    announce_start
+    convert_files
+    announce_finish
   end
 
   private
 
   attr_reader :original_extension, :target_files, :target_extension, :mode
+
+  # @rbs return: void
+  def announce_empty
+    output "========== [#{exec_mode}] No File with #{original_extension} Remains =========="
+  end
+
+  # @rbs return: void
+  def announce_start
+    output "========== [#{exec_mode}] Total File Extensions Count to Convert: #{target_files.length} =========="
+    output "========== [#{exec_mode}] Start Converting File Extensions =========="
+  end
+
+  # @rbs return: void
+  def convert_files
+    target_files.each do |target_file|
+      destination = destination_file(target_file)
+      FileUtils.mv(target_file, destination) if mode == 'e'
+      output "========== [#{exec_mode}] Converted File Extension: #{target_file} => #{destination} =========="
+    end
+  end
+
+  # @rbs return: void
+  def announce_finish
+    output "========== [#{exec_mode}] Total Converted File Extensions Count: #{target_files.length} =========="
+  end
 
   # @rbs return: String
   def exec_mode
