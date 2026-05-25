@@ -1,5 +1,7 @@
 # Generated from src/application.rb with RBS::Inline
 
+# Renames files in the current directory tree from one extension to another,
+# with a dry-run mode that prints intended renames without touching the disk.
 class Application
   class InvalidExtensionError < StandardError
   end
@@ -37,6 +39,18 @@ class Application
   attr_reader target_extension: untyped
 
   attr_reader mode: untyped
+
+  # @rbs return: void
+  def announce_empty: () -> void
+
+  # @rbs return: void
+  def announce_start: () -> void
+
+  # @rbs return: void
+  def convert_files: () -> void
+
+  # @rbs return: void
+  def announce_finish: () -> void
 
   # @rbs return: String
   def exec_mode: () -> String
