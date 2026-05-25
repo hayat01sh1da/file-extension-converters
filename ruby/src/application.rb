@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # rbs_inline: enabled
 
+# Renames files in the current directory tree from one extension to another,
+# with a dry-run mode that prints intended renames without touching the disk.
 class Application
   class InvalidExtensionError < StandardError; end
   class InvalidModeError < StandardError; end
