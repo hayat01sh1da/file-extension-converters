@@ -37,7 +37,7 @@ def run_file_extension_converter(c: Context) -> None:
         if value:
             params[key] = value
 
-    Application(**params).run()
+    Application.run(**params)
 
 
 @task(default=True)
