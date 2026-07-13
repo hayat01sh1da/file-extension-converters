@@ -36,7 +36,7 @@ jobs:
     outputs:
       python-changes: ${{ steps.change-detection.outputs.python }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Change Detection
         uses: dorny/paths-filter@v4
         id: change-detection
@@ -56,7 +56,7 @@ jobs:
     needs: change-detection
     if: needs.change-detection.outputs.python-changes == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-python
       - name: flake8
         working-directory: ./python
@@ -71,7 +71,7 @@ jobs:
     needs: change-detection
     if: needs.change-detection.outputs.python-changes == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-python
       - name: pytest
         working-directory: ./python
@@ -82,7 +82,7 @@ jobs:
     needs: change-detection
     if: needs.change-detection.outputs.python-changes == 'true'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-python
       - name: mypy
         working-directory: ./python
