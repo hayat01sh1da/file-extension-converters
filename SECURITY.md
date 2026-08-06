@@ -11,7 +11,7 @@
 | Ruby CLI utilities   | Ruby 4.0.6 (`.ruby-version`)       | Uses only Ruby stdlib (e.g., `Find`, `FileUtils`). Extra gems must be declared at the script level.           |
 | Gemfile              | 4.0.16                             | Per-project dependency manifest; versions install via Bundler.                                                |
 | Bundler              | 4.0.16                             | Resolves and installs the gems declared in the Gemfile.                                                       |
-| Python CLI utilities | CPython 3.14.6 (`.python-version`) | Standard-library only (`argparse`, `pathlib`). Add `requirements.txt` if third-party packages are introduced. |
+| Python CLI utilities | CPython 3.14.7 (`.python-version`) | Standard-library only (`argparse`, `pathlib`). Add `requirements.txt` if third-party packages are introduced. |
 
 ## Backward Compatibility
 
